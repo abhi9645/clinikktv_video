@@ -25,6 +25,7 @@ const videoUpload = multer({
 
 router.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
     res.send(req.file)
+    alert("success")
 }, (error, req, res, next) => {
     res.status(400).send({ error: error.message })
 })
