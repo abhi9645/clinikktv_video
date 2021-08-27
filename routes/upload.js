@@ -24,14 +24,10 @@ const videoUpload = multer({
 })
 
 router.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
-    
+    res.send(req.file)
     
 }, (error, req, res, next) => {
-    if(error){
-    res.status(400).send({ error: error.message })}
-        else{
-            res.send(req.file)
-        }
+    res.status(400).send({ error: error.message })
 })
 
 module.exports = router
