@@ -13,10 +13,10 @@ const videoStorage = multer.diskStorage({
 const videoUpload = multer({
     storage: videoStorage,
     limits: {
-        fileSize: 10000000   // 10000000 Bytes = 10 MB
+        fileSize: 10000000   
     },
     fileFilter(req, file, cb) {
-        if (!file.originalname.match(/\.(mp4|MPEG-4)$/)) {     // upload only mp4 and mkv format
+        if (!file.originalname.match(/\.(mp4|MPEG-4)$/)) {    
             return cb(new Error('Please upload a Video'))
         }
         cb(undefined, true)
@@ -24,10 +24,14 @@ const videoUpload = multer({
 })
 
 router.post('/uploadVideo', videoUpload.single('video'), (req, res) => {
-    res.send(req.file)
-    alert("success")
+    
+    
 }, (error, req, res, next) => {
-    res.status(400).send({ error: error.message })
+    if(error){
+    res.status(400).send({ error: error.message })}
+        else{
+            res.send(req.file)
+        }
 })
 
 module.exports = router
